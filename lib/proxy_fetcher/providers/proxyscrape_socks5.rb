@@ -6,9 +6,11 @@ module ProxyFetcher
   module Providers
     # FreeProxyList provider class.
     class ProxyscrapeSOCKS5 < Base
+      TIMEOUT = 500
+
       # Provider URL to fetch proxy list
       def provider_url
-        "https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5"
+        "https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=#{TIMEOUT}"
       end
 
       # Loads provider HTML and parses it with internal document object.

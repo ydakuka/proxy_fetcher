@@ -6,9 +6,11 @@ module ProxyFetcher
   module Providers
     # FreeProxyList provider class.
     class ProxyscrapeHTTP < Base
+      TIMEOUT = 500
+
       # Provider URL to fetch proxy list
       def provider_url
-        "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http"
+        "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=#{TIMEOUT}"
       end
 
       # Loads provider HTML and parses it with internal document object.
@@ -49,6 +51,8 @@ module ProxyFetcher
       #
       def to_proxy(node)
         addr, port = node.split(":")
+
+        ProxyFetcher.logger.warn(node)
 
         ProxyFetcher::Proxy.new.tap do |proxy|
           proxy.addr = addr
